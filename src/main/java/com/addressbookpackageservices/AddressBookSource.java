@@ -13,7 +13,7 @@ public class AddressBookSource {
     private String phoneNumber;
 
     Scanner scanner = new Scanner(System.in);
-    public void enterDetails(){
+    public String enterDetails(){
         System.out.println("ENTER THE DETAILS");
         System.out.println("ENTER THE FIRST NAME :");
         this.firstName= scanner.nextLine();
@@ -31,7 +31,18 @@ public class AddressBookSource {
         this.email= scanner.nextLine();
         System.out.println("ENTER THE PHONE NUMBER :");
         this.phoneNumber= scanner.nextLine();
+         return "\nAddressBookSource{" +
+                "\nfirstName='" + firstName + '\'' +
+                " \nLastName='" + lastName + '\'' +
+                " \naddress='" + address + '\'' +
+                " \ncity='" + city + '\'' +
+                " \nstate='" + state + '\'' +
+                " \nzipCode='" + zipCode + '\'' +
+                " \nemail='" + email + '\'' +
+                " \nphoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
+
     @Override
     public String toString() {
         return "\nAddressBookSource{" +
