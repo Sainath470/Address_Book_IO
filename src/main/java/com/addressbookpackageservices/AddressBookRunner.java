@@ -3,50 +3,41 @@ import java.util.*;
 
 public class AddressBookRunner {
 
-    static ArrayList<AddressBookSource> personDetails = new ArrayList<>();
+    static Map<String, AddressBookSource> personDetails = new HashMap<>();
     static Scanner scanner = new Scanner(System.in);
+
+
     public static void main(String[] args) {
+
         System.out.println("WELCOME TO THE ADDRESS BOOK PROGRAM");
         boolean option = true;
         while(option) {
 
-            System.out.println("1 for adding\n2 for editing\n3 for deleting\n4 for exit");
+            System.out.println("1 for adding address book\n2 for adding contact\n3 for exit");
             int input = scanner.nextInt();
             switch (input) {
-                case 1 -> {
-                    System.out.println("ENTER THE NUMBER OF CONTACTS TO ADD");
-                    int choice = scanner.nextInt();
-                    for (int j = 0; j < choice; j++) {
-                        AddressBookSource person = new AddressBookSource();
-                        person.enterDetails();
-                        personDetails.add(person);
-                    }
-                    System.out.println(personDetails);
+                case 1 ->{
+                    System.out.println("ENTER THE ADDRESS BOOK NAME");
+                    personDetails.put(scanner.next(), new AddressBookSource());
+                    System.out.println(personDetails.toString());
                 }
                 case 2 -> {
-                    System.out.println("Please enter the first name of the contact");
-                    String input1 = scanner.next();
-                    for (AddressBookSource i : personDetails) {
-                        if (i.getFirstName().equals(input1)) {
-                            i.editDetails();
-                        }else System.out.println("not found");
+                    System.out.println("ENTER THE ADDRESS BOOK NAME TO ADD PERSON");
+                    String addressBookName = scanner.next();
+                    if (personDetails.containsKey(addressBookName)) {
+                        AddressBookSource bookSystem = personDetails.get(addressBookName);
+                        bookSystem.createPerson();
+                    } else {
+                        System.out.println("Address Book is not present");
                     }
-                    System.out.println(personDetails);
+                    System.out.println(personDetails.toString());
                 }
-                case 3 -> {
-                    System.out.println("Please enter the first name of the contact you want to delete");
-                    String input2 = scanner.next();
-                    for (AddressBookSource i: personDetails) {
-                        String personName = i.getFirstName();
-                        if(input2.equals(personName)) {
-                            personDetails.remove(i);
-                            System.out.println("person is deleted from address book");
-                            break;
-                        }else System.out.println("invalid name");
-                    }
-                System.out.println(personDetails);
-            }
-                default -> option = false;
+
+                default -> {
+                      scanner.close();
+                        option = false;
+                }
+
             }
         }
     }

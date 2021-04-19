@@ -1,114 +1,136 @@
 package com.addressbookpackageservices;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AddressBookSource {
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String email;
-    private String phoneNumber;
 
-    Scanner scanner = new Scanner(System.in);
-    public void enterDetails(){
-        System.out.println("ENTER THE DETAILS");
-        System.out.println("ENTER THE FIRST NAME :");
-        this.firstName= scanner.nextLine();
-        System.out.println("ENTER THE LAST NAME :");
-        this.lastName= scanner.nextLine();
-        System.out.println("ENTER THE ADDRESS :");
-        this.address= scanner.nextLine();
-        System.out.println("ENTER THE CITY :");
-        this.city= scanner.nextLine();
-        System.out.println("ENTER THE STATE :");
-        this.state= scanner.nextLine();
-        System.out.println("ENTER THE ZIPCODE :");
-        this.zipCode= scanner.nextLine();
-        System.out.println("ENTER THE EMAIL :");
-        this.email= scanner.nextLine();
-        System.out.println("ENTER THE PHONE NUMBER :");
-        this.phoneNumber= scanner.nextLine();
+
+    private static Scanner scanner = new Scanner(System.in);
+    List<Person> personList = new ArrayList<>();
+
+
+    private static Person addPerson() {
+        Person person = new Person();
+        System.out.println("Please enter first name");
+        String firstName = scanner.next();
+        person.setFirstName(firstName);
+        System.out.println("Please enter last name");
+        String lastName = scanner.next();
+        person.setLastName(lastName);
+        System.out.println("Please enter address");
+        String address = scanner.next();
+        person.setAddress(address);
+        System.out.println("Please enter city");
+        String city = scanner.next();
+        person.setCity(city);
+        System.out.println("Please enter state");
+        String state = scanner.next();
+        person.setState(state);
+        System.out.println("Please enter phone number");
+        String phoneNumber = scanner.next();
+        person.setPhoneNumber(phoneNumber);
+        System.out.println("Please enter zip code");
+        String zipCode = scanner.next();
+        person.setZipCode(zipCode);
+        System.out.println("Please enter email");
+        String email = scanner.next();
+        person.setEmail(email);
+        return person;
     }
 
-    public  void editDetails(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("What details you want to edit: ");
-        System.out.println("1 for firstname\n2 for last name\n3 for address\n4 for city\n5 for state\n6 for email\n7 for zip code\n8 for phone number\n9 for exit");
-        int choice = scanner.nextInt();
-        switch(choice){
-            case 1:
-                System.out.println("first name to be edited to ");
-                String fName = input.nextLine();
-                this.firstName = fName;
-                break;
+    private static Person editPerson(Person person) {
+        System.out.println("Please enter first name");
+        String firstName = scanner.next();
+        person.setFirstName(firstName);
+        System.out.println("Please enter last name");
+        String lastName = scanner.next();
+        person.setLastName(lastName);
+        System.out.println("Please enter address");
+        String address = scanner.next();
+        person.setAddress(address);
+        System.out.println("Please enter city");
+        String city = scanner.next();
+        person.setCity(city);
+        System.out.println("Please enter state");
+        String state = scanner.next();
+        person.setState(state);
+        System.out.println("Please enter phone number");
+        String phoneNumber = scanner.next();
+        person.setPhoneNumber(phoneNumber);
+        System.out.println("Please enter zip code");
+        String zipCode = scanner.next();
+        person.setZipCode(zipCode);
+        System.out.println("Please enter email");
+        String email = scanner.next();
+        person.setEmail(email);
+        return person;
+    }
 
-            case 2:
-                System.out.println("last name to be edited to");
-                String lName = input.nextLine();
-                this.lastName = lName;
-                break;
-            case 3:
-                System.out.println("address to be edited to");
-                String newAddress = input.nextLine();
-                this.address = newAddress;
-                break;
-            case 4:
-                System.out.println("City to be edited to");
-                String newCity = input.nextLine();
-                this.city = newCity;
-                break;
-            case 5:
-                System.out.println("State to be edited to");
-                String newState = input.nextLine();
-                this.state = newState;
-                break;
-            case 6:
-                System.out.println("email to be edited to");
-                String newEmail = input.nextLine();
-                this.email = newEmail;
-                break;
-            case 7:
-                System.out.println("zip code to be edited to");
-                String newZip = input.nextLine();
-                this.email = newZip;
-                break;
-            case 8:
-                System.out.println("phone number to be edited to");
-                String newPhone = input.nextLine();
-                this.email = newPhone;
-                break;
+    public void createPerson() {
+        System.out.println("Welcome to address book");
 
-            default:
-                break;
+        boolean isExit = false;
+        while (!isExit) {
+            System.out.println("Please select\n1.Adding Person\n2.Updating Person\n3.Delete Person\n4.Exit");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1 -> {
+                    if (!isPersonExist(getName())) {
+                        personList.add(addPerson());
+                    }
+                    System.out.println(personList.toString());
+                }
+                case 2 -> {
+                    System.out.println("Please enter name to Update");
+                    Person person1 = findPerson(getName());
+                    if (person1 != null) {
+                        editPerson(person1);
+                    }
+                    System.out.println(personList.toString());
+                }
+                case 3 -> {
+                    System.out.println("Please enter name to Delete");
+                    Person person = findPerson(getName());
+                    if (person != null) {
+                        personList.remove(person);
+                    }
+                    System.out.println(personList.toString());
+                }
+                default -> isExit = true;
+            }
         }
+
+    }
+
+    private boolean isPersonExist(String name) {
+        return personList.stream()
+                .anyMatch(personElement -> personElement.getFirstName().equals(name) || personElement
+                        .getLastName().equals(name));
+    }
+
+    private Person findPerson(String name) {
+        Person person = personList.stream().filter(
+                personElement -> personElement.getFirstName().equals(name) || personElement
+                        .getLastName().equals(name))
+                .findFirst().orElse(null);
+
+        if (person == null) {
+            System.out.println("No person present matching with your name");
+            return null;
+        } else {
+            return person;
+        }
+
+    }
+
+    private static String getName() {
+        System.out.println("Please enter name");
+        return scanner.next();
     }
 
 
 
-
-    @Override
-    public String toString() {
-        return "AddressBookSource{" +
-                "\nfirstName='" + firstName + '\'' +
-                " \nLastName='" + lastName + '\'' +
-                " \naddress='" + address + '\'' +
-                " \ncity='" + city + '\'' +
-                " \nstate='" + state + '\'' +
-                " \nzipCode='" + zipCode + '\'' +
-                " \nemail='" + email + '\'' +
-                " \nphoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
 }
