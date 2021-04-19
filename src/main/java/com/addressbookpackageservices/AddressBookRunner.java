@@ -9,7 +9,7 @@ public class AddressBookRunner {
         System.out.println("WELCOME TO THE ADDRESS BOOK PROGRAM");
         boolean option = true;
         while(option) {
-            System.out.println("1 for adding\n2 for editing\n3 for exit");
+            System.out.println("1 for adding\n2 for editing\n3 for deleting\n4 for exit");
             int input = scanner.nextInt();
             switch (input) {
                 case 1 -> {
@@ -29,9 +29,22 @@ public class AddressBookRunner {
                         if (i.getFirstName().equals(input1)) {
                             i.editDetails();
                         }else System.out.println("not found");
-                        System.out.println(personDetails);
                     }
+                    System.out.println(personDetails);
                 }
+                case 3 -> {
+                    System.out.println("Please enter the first name of the contact you want to delete");
+                    String input2 = scanner.next();
+                    for (AddressBookSource i: personDetails) {
+                        String personName = i.getFirstName();
+                        if(input2.equals(personName)) {
+                            personDetails.remove(i);
+                            System.out.println("person is deleted from address book");
+                            break;
+                        }else System.out.println("invalid name");
+                    }
+                System.out.println(personDetails);
+            }
                 default -> option = false;
             }
         }
