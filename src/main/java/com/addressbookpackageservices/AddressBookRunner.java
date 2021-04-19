@@ -9,6 +9,7 @@ public class AddressBookRunner {
         System.out.println("WELCOME TO THE ADDRESS BOOK PROGRAM");
         boolean option = true;
         while(option) {
+
             System.out.println("1 for adding\n2 for editing\n3 for deleting\n4 for exit");
             int input = scanner.nextInt();
             switch (input) {
