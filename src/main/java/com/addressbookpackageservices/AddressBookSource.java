@@ -191,7 +191,7 @@ public class AddressBookSource {
                 element.getLastName().equals(lastname));
     }
 
-    public ArrayList<Person> getPersonsData() {
+    public ArrayList<Person> getContactsData() {
         return personList;
     }
 }
