@@ -18,7 +18,8 @@ public class AddressBookRunner {
         while(option) {
 
             System.out.println("1 for adding address book\n2 for adding contact\n3 search persons using state\n4 search " +
-                    "persons using city\n5 enter the state or city name to get count \n6 Sorting details Alphabetically \n7 for exit");
+                    "persons using city\n5 enter the state or city name to get count \n6 Sorting details Alphabetically \n7 sort Details by city:" +
+                    "\n8 for exit");
             int input = scanner.nextInt();
             switch (input) {
                 case 1 -> {
@@ -41,24 +42,31 @@ public class AddressBookRunner {
 
                 case 3 ->{
                     System.out.println("Enter the State Name");
-                    String state = scanner.nextLine();
+                    Scanner stateName = new Scanner(System.in);
+                    String state = stateName.nextLine();
                     addressBookRunner.displayPersonsByState(state);
                 }
 
                 case 4 ->{
                     System.out.println("Enter the City Name");
-                    String city = scanner.nextLine();
+                    Scanner cityName = new Scanner(System.in);
+                    String city = cityName.nextLine();
                     addressBookRunner.displayPersonsByCity(city);
                 }
 
                 case 5 ->{
                     System.out.println("Enter City or State name to get count");
-                    String cityOrState = scanner.nextLine();
+                    Scanner getCityCount = new Scanner(System.in);
+                    String cityOrState = getCityCount.nextLine();
                     addressBookRunner.getCountOfContactDetailsByStateOrCity(cityOrState);
                 }
 
                 case 6->{
                     addressBookRunner.sortDetailsAlphabetically();
+                }
+
+                case 7 -> {
+                    addressBookRunner.sortDetailsByCity();
                 }
                 default -> {
                       scanner.close();
@@ -69,14 +77,6 @@ public class AddressBookRunner {
         }
     }
 
-
-    public void searchByCityOrState(String cityOrState) {
-        for (Map.Entry<String, AddressBookSource> addressBookEntry : addressBookRunner.personDetails.entrySet()) {
-            List<Person> cityOrStateData = addressBookEntry.getValue().getContactsData().stream()
-                    .filter(person -> person.getCity().equals(cityOrState) || person.getState().equals(cityOrState)).collect(Collectors.toList());
-            System.out.println(cityOrStateData);
-        }
-    }
 
     public void displayPersonsByState(String state){
         List<List<Person>> personsByStateDetails = new ArrayList<>();
@@ -124,6 +124,14 @@ public class AddressBookRunner {
                 System.out.println("Sorted contacts by First name: "
                 +value.getContactsData().stream()
                 .sorted(Comparator.comparing(Person::getFirstName)).collect(Collectors.toList())));
+    }
+
+    private void sortDetailsByCity(){
+        personDetails.forEach((key,value)->
+                System.out.println("Sorting contacts by city: "
+                +value.getContactsData().stream()
+                        .sorted(Comparator.comparing(Person::getCity)).sorted()
+                        .collect(Collectors.toList())));
     }
 
 }
