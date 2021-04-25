@@ -55,6 +55,12 @@ public class AddressBookRunner {
                     String city = scanner.nextLine();
                     addressBookRunner.displayPersonsByCity(city);
                 }
+
+                case 6 ->{
+                    System.out.println("Enter City or State name to get count");
+                    String cityOrState = scanner.nextLine();
+                    addressBookRunner.getCountOfContactDetailsByStateOrCity(cityOrState);
+                }
                 default -> {
                       scanner.close();
                         option = false;
@@ -93,10 +99,27 @@ public class AddressBookRunner {
                     .collect(Collectors.toList());
             personsByCityDetails.add(byCity);
         }
-        statePersonDetails.put(city,personsByCityDetails);
-        System.out.println(statePersonDetails.toString());
-
+        cityPersonDetails.put(city,personsByCityDetails);
+        System.out.println(cityPersonDetails.toString());
     }
+
+    private void getCountOfContactDetailsByStateOrCity(String cityOrState){
+        int count = 0 ;
+        for(Map.Entry<String, AddressBookSource> addressBookSourceEntry : personDetails.entrySet()){
+            for(int i = 0; i<(addressBookSourceEntry.getValue()).getContactsData().size(); i++){
+                Person personDetails = addressBookSourceEntry.getValue().getContactsData().get(i);
+                if(personDetails.getState().equals(cityOrState) ||
+                personDetails.getCity().equals(cityOrState)){
+                    count++;
+                }
+                else{
+                    System.out.println("No contact found to display the count");
+                }
+            }
+        }
+        System.out.println("Total number of details available in: " +cityOrState+ " is "+count);
+    }
+
 }
 
 
