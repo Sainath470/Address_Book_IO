@@ -17,8 +17,8 @@ public class AddressBookRunner {
         boolean option = true;
         while(option) {
 
-            System.out.println("1 for adding address book\n2 for adding contact\n3 for searching person by city or state\n4 search persons using state\n5 search " +
-                    "persons using city\n6 for exit");
+            System.out.println("1 for adding address book\n2 for adding contact\n3 search persons using state\n4 search " +
+                    "persons using city\n5 enter the state or city name to get count \n6 Sorting details Alphabetically \n7 for exit");
             int input = scanner.nextInt();
             switch (input) {
                 case 1 -> {
@@ -38,28 +38,27 @@ public class AddressBookRunner {
                     }
                     System.out.println(addressBookRunner.personDetails.values().toString());
                 }
-                case 3 -> {
-                    System.out.println("ENTER THE CITY NAME OR STATE NAME");
-                    String cityOrState = scanner.next();
-                    addressBookRunner.searchByCityOrState(cityOrState);
-                }
 
-                case 4 ->{
+                case 3 ->{
                     System.out.println("Enter the State Name");
                     String state = scanner.nextLine();
                     addressBookRunner.displayPersonsByState(state);
                 }
 
-                case 5 ->{
+                case 4 ->{
                     System.out.println("Enter the City Name");
                     String city = scanner.nextLine();
                     addressBookRunner.displayPersonsByCity(city);
                 }
 
-                case 6 ->{
+                case 5 ->{
                     System.out.println("Enter City or State name to get count");
                     String cityOrState = scanner.nextLine();
                     addressBookRunner.getCountOfContactDetailsByStateOrCity(cityOrState);
+                }
+
+                case 6->{
+                    addressBookRunner.sortDetailsAlphabetically();
                 }
                 default -> {
                       scanner.close();
@@ -118,6 +117,13 @@ public class AddressBookRunner {
             }
         }
         System.out.println("Total number of details available in: " +cityOrState+ " is "+count);
+    }
+
+    private void sortDetailsAlphabetically(){
+        personDetails.forEach((key, value)->
+                System.out.println("Sorted contacts by First name: "
+                +value.getContactsData().stream()
+                .sorted(Comparator.comparing(Person::getFirstName)).collect(Collectors.toList())));
     }
 
 }
