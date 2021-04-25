@@ -1,14 +1,16 @@
 package com.addressbookpackageservices;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 
 public class AddressBookSource {
-
-
     private static Scanner scanner = new Scanner(System.in);
-    List<Person> personList = new ArrayList<>();
+     ArrayList<Person> personList = new ArrayList<>();
+    List<Person> retrieveDetails = new ArrayList<>();
+
+    public AddressBookSource() {
+        personList = new ArrayList<>();
+    }
 
 
     private static Person addPerson() {
@@ -31,40 +33,60 @@ public class AddressBookSource {
         System.out.println("Please enter phone number");
         String phoneNumber = scanner.next();
         person.setPhoneNumber(phoneNumber);
-        System.out.println("Please enter zip code");
-        String zipCode = scanner.next();
-        person.setZipCode(zipCode);
         System.out.println("Please enter email");
         String email = scanner.next();
         person.setEmail(email);
+        System.out.println("Please enter zip code");
+        String zipCode = scanner.next();
+        person.setZipCode(zipCode);
         return person;
     }
 
     private static Person editPerson(Person person) {
-        System.out.println("Please enter first name");
-        String firstName = scanner.next();
-        person.setFirstName(firstName);
-        System.out.println("Please enter last name");
-        String lastName = scanner.next();
-        person.setLastName(lastName);
-        System.out.println("Please enter address");
-        String address = scanner.next();
-        person.setAddress(address);
-        System.out.println("Please enter city");
-        String city = scanner.next();
-        person.setCity(city);
-        System.out.println("Please enter state");
-        String state = scanner.next();
-        person.setState(state);
-        System.out.println("Please enter phone number");
-        String phoneNumber = scanner.next();
-        person.setPhoneNumber(phoneNumber);
-        System.out.println("Please enter zip code");
-        String zipCode = scanner.next();
-        person.setZipCode(zipCode);
-        System.out.println("Please enter email");
-        String email = scanner.next();
-        person.setEmail(email);
+        System.out.println("1 for firstname\n2 for last name\n3 for address\n4 for city\n5 for state\n6 for email\n7 for zip code\n8 for phone number\n9 for exit ");
+        int input = scanner.nextInt();
+        switch(input) {
+            case 1 ->{
+                System.out.println("Please enter first name");
+                String firstName = scanner.next();
+                person.setFirstName(firstName);
+            }
+            case 2 -> {
+                System.out.println("Please enter last name");
+                String lastName = scanner.next();
+                person.setLastName(lastName);
+            }
+            case 3 -> {
+                System.out.println("Please enter address");
+                String address = scanner.next();
+                person.setAddress(address);
+            }
+            case 4 -> {
+                System.out.println("Please enter city");
+                String city = scanner.next();
+                person.setCity(city);
+            }
+            case 5 -> {
+                System.out.println("Please enter state");
+                String state = scanner.next();
+                person.setState(state);
+            }
+            case 6 -> {
+                System.out.println("Please enter phone number");
+                String phoneNumber = scanner.next();
+                person.setPhoneNumber(phoneNumber);
+            }
+            case 7 -> {
+                System.out.println("Please enter zip code");
+                String zipCode = scanner.next();
+                person.setZipCode(zipCode);
+            }
+            case 8 -> {
+                System.out.println("Please enter email");
+                String email = scanner.next();
+                person.setEmail(email);
+            }
+        }
         return person;
     }
 
@@ -78,7 +100,13 @@ public class AddressBookSource {
             switch (choice) {
                 case 1 -> {
                     if (!duplicateCheck(getFName(),getLName())){
+                        System.out.println("Hurray no duplicates are present");
+                        System.out.println("Proceed with adding");
                         personList.add(addPerson());
+                    }else
+                    {
+                        System.out.println("Contact is already saved with that name");
+                        System.out.println("Please enter with different credentials or update the existing one");
                     }
                     System.out.println(personList.toString());
                 }
@@ -98,10 +126,17 @@ public class AddressBookSource {
                     }
                     System.out.println(personList.toString());
                 }
+
                 default -> isExit = true;
             }
         }
 
+    }
+
+    public void searchAcrossAddressBooks(String cityOrState){
+        Person person = searchPersonThroughAddressBooks(cityOrState);
+        retrieveDetails.add(person);
+        System.out.println(retrieveDetails.toString());
     }
 
     private boolean isPersonExist(String name) {
@@ -122,11 +157,25 @@ public class AddressBookSource {
         } else {
             return person;
         }
-
     }
 
+    private  Person searchPersonThroughAddressBooks(String cityOrState){
+
+        Person person =retrieveDetails.stream().filter(search -> search.getCity().equals(cityOrState) ||
+                search.getState().equals(cityOrState)).findFirst().orElse(null);
+        if(person == null){
+            System.out.println("No contact is matching with that details");
+            return null;
+        }else{
+            return person;
+        }
+    }
+
+
+
     private static String getFName() {
-        System.out.println("Please enter name");
+        System.out.println("Checking for duplicates");
+        System.out.println("Please enter first name");
         return scanner.next();
     }
 
@@ -136,10 +185,13 @@ public class AddressBookSource {
         return scanner.next();
     }
 
+
     private boolean duplicateCheck(String firstname, String lastname){
         return personList.stream().anyMatch(element -> element.getFirstName().equals(firstname) &&
                 element.getLastName().equals(lastname));
     }
 
-
+    public ArrayList<Person> getPersonsData() {
+        return personList;
+    }
 }

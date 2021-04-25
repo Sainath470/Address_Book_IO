@@ -2,7 +2,8 @@ package com.addressbookpackageservices;
 
 import java.util.Objects;
 
-public class Person {
+public class Person{
+
     private String firstName;
     private String lastName;
     private String address;
