@@ -8,6 +8,7 @@ public class AddressBookRunner {
    static AddressBookRunner addressBookRunner = new AddressBookRunner();
    private HashMap<String, List<List<Person>>> statePersonDetails = new HashMap<>();
    private HashMap<String, List<List<Person>>> cityPersonDetails = new HashMap<>();
+   FileIOServices fileIOServices = new FileIOServices();
 
     public static void main(String[] args) {
 
@@ -17,9 +18,15 @@ public class AddressBookRunner {
         boolean option = true;
         while(option) {
 
-            System.out.println("1 for adding address book\n2 for adding contact\n3 search persons using state\n4 search " +
-                    "persons using city\n5 enter the state or city name to get count \n6 Sorting details Alphabetically \n7 sort Details by city:" +
-                    "\n8 for exit");
+            System.out.println("""
+                    1 for adding address book
+                    2 for adding contact
+                    3 search persons using state
+                    4 search persons using city
+                    5 enter the state or city name to get count\s
+                    6 Sorting details Alphabetically\s
+                    7 sort Details by city:
+                    8 for exit""");
             int input = scanner.nextInt();
             switch (input) {
                 case 1 -> {
@@ -33,11 +40,10 @@ public class AddressBookRunner {
                     if (addressBookRunner.personDetails.containsKey(addressBookName)) {
                         addressBookRunner.personDetails.put(addressBookName, addressBookSource);
                         addressBookSource.createPerson();
-
                     } else {
                         System.out.println("Address Book is not present");
                     }
-                    System.out.println(addressBookRunner.personDetails.values().toString());
+                    addressBookRunner.fileIOServices.writeToFile(addressBookRunner.personDetails);
                 }
 
                 case 3 ->{
@@ -74,7 +80,11 @@ public class AddressBookRunner {
                 }
 
             }
+
         }
+        addressBookRunner.personDetails.forEach((key, value)-> System.out.println("Key" +key+ "Value "+value));
+        System.out.print(addressBookRunner.fileIOServices.readAddressBookData());
+
     }
 
 

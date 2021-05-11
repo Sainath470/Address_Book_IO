@@ -1,19 +1,17 @@
 package com.addressbookpackageservices;
 
-
 import java.util.*;
 
 public class AddressBookSource {
     private static Scanner scanner = new Scanner(System.in);
-     ArrayList<Person> personList = new ArrayList<>();
-    List<Person> retrieveDetails = new ArrayList<>();
-
+     ArrayList<Person> personList;
+     FileIOServices fileIOServices = new FileIOServices();
     public AddressBookSource() {
         personList = new ArrayList<>();
     }
 
 
-    private static Person addPerson() {
+    private Person addPerson() {
         Person person = new Person();
         System.out.println("Please enter first name");
         String firstName = scanner.next();
@@ -133,11 +131,6 @@ public class AddressBookSource {
 
     }
 
-    public void searchAcrossAddressBooks(String cityOrState){
-        Person person = searchPersonThroughAddressBooks(cityOrState);
-        retrieveDetails.add(person);
-        System.out.println(retrieveDetails.toString());
-    }
 
     private boolean isPersonExist(String name) {
         return personList.stream()
@@ -159,20 +152,6 @@ public class AddressBookSource {
         }
     }
 
-    private  Person searchPersonThroughAddressBooks(String cityOrState){
-
-        Person person =retrieveDetails.stream().filter(search -> search.getCity().equals(cityOrState) ||
-                search.getState().equals(cityOrState)).findFirst().orElse(null);
-        if(person == null){
-            System.out.println("No contact is matching with that details");
-            return null;
-        }else{
-            return person;
-        }
-    }
-
-
-
     private static String getFName() {
         System.out.println("Checking for duplicates");
         System.out.println("Please enter first name");
@@ -181,7 +160,7 @@ public class AddressBookSource {
 
 
     private static String getLName() {
-        System.out.println("Please enter name");
+        System.out.println("Please enter last name");
         return scanner.next();
     }
 
@@ -193,5 +172,12 @@ public class AddressBookSource {
 
     public ArrayList<Person> getContactsData() {
         return personList;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressBookSource{" +
+                "personList=" + personList +
+                '}';
     }
 }
