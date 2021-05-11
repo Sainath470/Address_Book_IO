@@ -3,9 +3,9 @@ package com.addressbookpackageservices;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 public class AddressBookDBSystem {
     private static AddressBookDBSystem addressBookDBSystem;
-
 
     public static AddressBookDBSystem getInstance()
     {
@@ -19,10 +19,23 @@ public class AddressBookDBSystem {
         String jdbcURL = "jdbc:mysql://localhost:3306/addressbook_service?useSSL=false";
         String userName = "root";
         String password = "Sainath@8801";
-        Connection connection;
-        System.out.println("Connecting to database:" + jdbcURL);
-        connection = DriverManager.getConnection(jdbcURL, userName, password);
-        System.out.println("Connection is successful!!!" + connection);
+        Connection connection = null;
+        try{
+            //calling class for mysql driver
+            //loading drivers using forName() method
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Driver loaded!");
+        }catch (ClassNotFoundException e){
+            throw new IllegalStateException("Cannot find the driver in the classpath!", e);
+        }
+        try{
+            System.out.println("Connecting to database:"+jdbcURL);
+            connection = DriverManager.getConnection(jdbcURL,userName,password);
+
+            System.out.println("Connection is successful!!!"+connection);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return connection;
     }
 
@@ -50,7 +63,7 @@ public class AddressBookDBSystem {
         List<Person> addressBookContactArrayList = new ArrayList<>();
         try{
             while (resultSet.next()) {
-                String firstName = resultSet.getString("Name");
+                String firstName = resultSet.getString("firstname");
                 String lastName = resultSet.getString("lastname");
                 String address = resultSet.getString("address");
                 String city = resultSet.getString("city");

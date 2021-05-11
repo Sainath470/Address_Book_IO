@@ -1,0 +1,4 @@
+Driver loaded!
+UConnecting to database:jdbc:mysql://localhost:3306/addressbook_service?useSSL=false
+FConnection is successful!!!com.mysql.cj.jdbc.ConnectionImpl@53ec2138
+«[Person{firstName='sai', lastName='nath', address='asrao nagar', city='hyderabad', state='telangana', zipCode='500040', email='sai@gmail.com', phoneNumber='1234567890'}]

@@ -61,4 +61,13 @@ class AddressBookSystemTest {
         boolean result = jsonFile.jsonWriteData(contacts);
         Assertions.assertTrue(result);
     }
+
+    @Test
+    public void givenAddressBookContactsInDB_WhenRetrieved_ShouldMatchContactsCount()
+    {
+        AddressBookSystem addressBookSystem = new AddressBookSystem();
+        List<Person> addressBookContactList = addressBookSystem.readAddressBookData(AddressBookSystem.IOService.DB_IO);
+        System.out.println(addressBookContactList);
+        Assertions.assertEquals(1,addressBookContactList.size());
+    }
 }

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.addressbookpackageservices.AddressBookSystemTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-11T18:38:15" hostname="AVS-1997" time="0.08">
+<testsuite name="com.addressbookpackageservices.AddressBookSystemTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-11T19:46:01" hostname="AVS-1997" time="0.241">
   <properties/>
-  <testcase name="givenObject_WhenStoredInTheJson_ShouldReturn_TRUE()" classname="com.addressbookpackageservices.AddressBookSystemTest" time="0.08"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="givenAddressBookContactsInDB_WhenRetrieved_ShouldMatchContactsCount()" classname="com.addressbookpackageservices.AddressBookSystemTest" time="0.241"/>
+  <system-out><![CDATA[Driver loaded!
+Connecting to database:jdbc:mysql://localhost:3306/addressbook_service?useSSL=false
+Connection is successful!!!com.mysql.cj.jdbc.ConnectionImpl@53ec2138
+[Person{firstName='sai', lastName='nath', address='asrao nagar', city='hyderabad', state='telangana', zipCode='500040', email='sai@gmail.com', phoneNumber='1234567890'}]
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

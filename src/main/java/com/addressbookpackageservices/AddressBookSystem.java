@@ -6,7 +6,7 @@ public class AddressBookSystem
 {
     public enum IOService{DB_IO}
 
-    private List<Person> addressBookContactlist;
+    private List<Person> addressBookContactList;
     private AddressBookDBSystem addressBookDBSystem;
 
     public AddressBookSystem()
@@ -18,12 +18,12 @@ public class AddressBookSystem
     public AddressBookSystem(List<Person> addressBookContactList)
     {
         this();
-        this.addressBookContactlist=addressBookContactList;
+        this.addressBookContactList =addressBookContactList;
     }
 
     public List<Person> readAddressBookData(IOService ioService){
         if(ioService.equals( IOService.DB_IO ))
-            this.addressBookContactlist =  addressBookDBSystem.readData();
-        return this.addressBookContactlist;
+            this.addressBookContactList =  addressBookDBSystem.readData();
+        return this.addressBookContactList;
     }
 }
