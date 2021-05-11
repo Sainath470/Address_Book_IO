@@ -29,13 +29,13 @@ public class AddressBookSource {
         String state = scanner.next();
         person.setState(state);
         System.out.println("Please enter phone number");
-        String phoneNumber = scanner.next();
+        long phoneNumber = scanner.nextLong();
         person.setPhoneNumber(phoneNumber);
         System.out.println("Please enter email");
         String email = scanner.next();
         person.setEmail(email);
         System.out.println("Please enter zip code");
-        String zipCode = scanner.next();
+        int zipCode = scanner.nextInt();
         person.setZipCode(zipCode);
         return person;
     }
@@ -71,12 +71,12 @@ public class AddressBookSource {
             }
             case 6 -> {
                 System.out.println("Please enter phone number");
-                String phoneNumber = scanner.next();
+                long phoneNumber = scanner.nextLong();
                 person.setPhoneNumber(phoneNumber);
             }
             case 7 -> {
                 System.out.println("Please enter zip code");
-                String zipCode = scanner.next();
+                int zipCode = scanner.nextInt();
                 person.setZipCode(zipCode);
             }
             case 8 -> {

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class OpenCSVFile {
@@ -34,7 +34,7 @@ public class OpenCSVFile {
         return true;
     }
 
-    public static boolean writeCSVFile(ArrayList<String[]> addContact) throws IOException {
+    public static boolean writeCSVFile(List<String[]> addContact) throws IOException {
         if (Files.exists(homePath)) {
             Path filePath = Paths.get(HOME + "/" + fileName);
             try {

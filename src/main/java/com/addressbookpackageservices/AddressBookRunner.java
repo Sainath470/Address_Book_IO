@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 public class AddressBookRunner {
 
-   private final HashMap<String, AddressBookSource> personDetails = new HashMap<>();
+   public final HashMap<String, AddressBookSource> personDetails = new HashMap<>();
    static AddressBookRunner addressBookRunner = new AddressBookRunner();
    private HashMap<String, List<List<Person>>> statePersonDetails = new HashMap<>();
    private HashMap<String, List<List<Person>>> cityPersonDetails = new HashMap<>();

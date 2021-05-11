@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.addressbookpackageservices.AddressBookSystemTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-11T18:38:15" hostname="AVS-1997" time="0.08">
+  <properties/>
+  <testcase name="givenObject_WhenStoredInTheJson_ShouldReturn_TRUE()" classname="com.addressbookpackageservices.AddressBookSystemTest" time="0.08"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

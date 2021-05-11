@@ -10,33 +10,33 @@ public class Person extends AddressBookRunner{
         //Declaring Varaibles
         @CsvBindByName(column = "firstName",required = true)
         @CsvBindByPosition(position = 0)
-        private String firstName;
+        public  String firstName;
         @CsvBindByName(column = "lastName",required = true)
         @CsvBindByPosition(position = 1)
-        private String lastName;
+        public String lastName;
         @CsvBindByName(column = "address",required = true)
         @CsvBindByPosition(position = 2)
-        private String address;
+        public String address;
         @CsvBindByName(column = "city",required = true)
         @CsvBindByPosition(position = 3)
-        private String city;
+        public String city;
         @CsvBindByName(column = "state",required = true)
         @CsvBindByPosition(position = 4)
-        private String state;
+        public String state;
         @CsvBindByName(column = "zipCode",required = true)
         @CsvBindByPosition(position = 5)
-        private String zipCode;
+        public int zipCode;
         @CsvBindByName(column = "phoneNumber",required = true)
         @CsvBindByPosition(position = 6)
-        private String phoneNumber;
+        public long phoneNumber;
         @CsvBindByName(column = "email",required = true)
         @CsvBindByPosition(position = 7)
-        private String email;
+        public String email;
 
         Person(){
         }
         //parameterized Constructor
-        public Person(String firstName, String lastName, String address, String city, String state, String zipCode, String phoneNumber, String email) {
+        public Person(String firstName, String lastName, String address, String city, String state, String email, long phoneNumber,int zipCode) {
             setFirstName(firstName);
             setLastName(lastName);
             setAddress(address);
@@ -88,11 +88,11 @@ public class Person extends AddressBookRunner{
         this.state = state;
     }
 
-    public String getZipCode() {
+    public int getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
+    public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -104,11 +104,11 @@ public class Person extends AddressBookRunner{
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
