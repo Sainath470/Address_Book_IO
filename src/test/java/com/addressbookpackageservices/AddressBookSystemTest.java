@@ -84,7 +84,17 @@ class AddressBookSystemTest {
     }
 
     @Test
-    public void givenState_WhenRetrieved_ShouldMatchEntryCount()
+    public void givenDateRangeWhenRetrieved_ShouldMatchEntryCount() {
+        AddressBookSystem addressBookSystem = new AddressBookSystem();
+        LocalDate startDate = LocalDate.of(2005, 1, 1);
+        LocalDate endDate = LocalDate.now();
+        List<Person> addressBookDataList = addressBookSystem.readAddressBookForDateRange(AddressBookSystem
+                .IOService.DB_IO, startDate, endDate);
+        Assertions.assertEquals(2, addressBookDataList.size());
+    }
+
+    @Test
+    public void givenCity_WhenRetrieved_ShouldMatchEntryCountByCity()
     {
         AddressBookSystem addressBookSystem = new AddressBookSystem();
         List<Person> addressBookDataList = addressBookSystem.countPeopleFromGivenCity(AddressBookSystem.IOService.DB_IO, "hyderabad");
@@ -96,16 +106,6 @@ class AddressBookSystemTest {
     {
         AddressBookSystem addressBookSystem = new AddressBookSystem();
         List<Person> addressBookDataList = addressBookSystem.countPeopleFromGivenState(AddressBookSystem.IOService.DB_IO, "telangana");
-        Assertions.assertEquals(2, addressBookDataList.size());
-    }
-
-    @Test
-    public void givenDateRangeWhenRetrieved_ShouldMatchEntryCount() {
-        AddressBookSystem addressBookSystem = new AddressBookSystem();
-        LocalDate startDate = LocalDate.of(2005, 1, 1);
-        LocalDate endDate = LocalDate.now();
-        List<Person> addressBookDataList = addressBookSystem.readAddressBookForDateRange(AddressBookSystem
-                .IOService.DB_IO, startDate, endDate);
         Assertions.assertEquals(2, addressBookDataList.size());
     }
 }
