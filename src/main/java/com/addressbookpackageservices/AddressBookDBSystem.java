@@ -6,6 +6,7 @@ import java.util.List;
 
 public class AddressBookDBSystem {
     private static AddressBookDBSystem addressBookDBSystem;
+    private PreparedStatement addressBookDataStatement;
 
     public static AddressBookDBSystem getInstance()
     {
@@ -51,14 +52,14 @@ public class AddressBookDBSystem {
         try (Connection connection = this.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            personList = this.getAddressBookContactData(resultSet);
+            personList = this.getAddressbookContactData(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return personList;
     }
 
-    private List<Person> getAddressBookContactData(ResultSet resultSet)
+    private List<Person> getAddressbookContactData(ResultSet resultSet)
     {
         List<Person> addressBookContactArrayList = new ArrayList<>();
         try{
@@ -78,5 +79,46 @@ public class AddressBookDBSystem {
             e.printStackTrace();
         }
         return addressBookContactArrayList;
+    }
+    public int updateMobileNumber(String firstName, long mobileNumber)
+    {
+        return this.updateAddressBookDataUsingStatement(firstName, mobileNumber);
+    }
+
+    private int updateAddressBookDataUsingStatement(String firstName, long mobileNumber)
+    {
+        String sql = String.format("update address_book set PhoneNumber = '%s' where firstname = '%s';", mobileNumber, firstName);
+        try (Connection connection = this.getConnection()) {
+            Statement statement = connection.createStatement();
+            return statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public List<Person>getAddressbookContactData(String firstName)
+    {
+        List<Person> personList = null;
+        if (this.addressBookDataStatement == null)
+            this.prepareStatementForAddressBookData();
+        try {
+            addressBookDataStatement.setString(1, firstName);
+            ResultSet resultSet = addressBookDataStatement.executeQuery();
+            personList = this.getAddressbookContactData(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return personList;
+    }
+
+    private void prepareStatementForAddressBookData() {
+        try {
+            Connection connection = this.getConnection();
+            String sql = "SELECT * FROM address_book WHERE firstname = ?";
+            addressBookDataStatement = connection.prepareStatement(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

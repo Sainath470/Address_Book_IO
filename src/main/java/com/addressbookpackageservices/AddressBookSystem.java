@@ -26,4 +26,32 @@ public class AddressBookSystem
             this.addressBookContactList =  addressBookDBSystem.readData();
         return this.addressBookContactList;
     }
+
+
+    public void updateMobileNumber(String firstName, long mobileNo)
+    {
+        int result = addressBookDBSystem.updateMobileNumber(firstName,mobileNo);
+        if (result == 0) return;
+        Person person = this.getAddressBookData(firstName);
+        if (person != null) person.phoneNumber = mobileNo;
+    }
+
+
+    private Person getAddressBookData(String firstName)
+    {
+        return this.addressBookContactList.stream()
+                .filter(addressBookDataItem -> addressBookDataItem.firstName.equals(firstName))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean checkAddressBookInSyncWithDB(String name) {
+        List<Person> addressBookDataList = addressBookDBSystem.getAddressbookContactData(name);
+        return addressBookDataList.get(0).equals(getEmployeePayrollData(name));
+    }
+
+    private Person getEmployeePayrollData(String name) {
+        return this.addressBookContactList.stream().filter(employeePayrollDataItem -> employeePayrollDataItem.firstName.equals(name)).findFirst().orElse(null);
+    }
+
 }

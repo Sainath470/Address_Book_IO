@@ -70,4 +70,15 @@ class AddressBookSystemTest {
         System.out.println(addressBookContactList);
         Assertions.assertEquals(1,addressBookContactList.size());
     }
+
+    @Test
+    public void givenNewMobileNumberForEmployee_WhenUpdated_ShouldSyncWithDB()
+    {
+        AddressBookSystem addressBookService = new AddressBookSystem();
+        List<Person> personList = addressBookService.readAddressBookData(AddressBookSystem.IOService.DB_IO);
+        addressBookService.updateMobileNumber("sai",708326675);
+        System.out.println(personList);
+        boolean result = addressBookService.checkAddressBookInSyncWithDB("sai");
+        Assertions.assertTrue(result);
+    }
 }
