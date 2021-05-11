@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +69,7 @@ class AddressBookSystemTest {
         AddressBookSystem addressBookSystem = new AddressBookSystem();
         List<Person> addressBookContactList = addressBookSystem.readAddressBookData(AddressBookSystem.IOService.DB_IO);
         System.out.println(addressBookContactList);
-        Assertions.assertEquals(1,addressBookContactList.size());
+        Assertions.assertEquals(2,addressBookContactList.size());
     }
 
     @Test
@@ -80,5 +81,31 @@ class AddressBookSystemTest {
         System.out.println(personList);
         boolean result = addressBookService.checkAddressBookInSyncWithDB("sai");
         Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void givenState_WhenRetrieved_ShouldMatchEntryCount()
+    {
+        AddressBookSystem addressBookSystem = new AddressBookSystem();
+        List<Person> addressBookDataList = addressBookSystem.countPeopleFromGivenCity(AddressBookSystem.IOService.DB_IO, "hyderabad");
+        Assertions.assertEquals(2, addressBookDataList.size());
+    }
+
+    @Test
+    public void givenState_WhenRetrieved_ShouldMatchEntryCountBYState()
+    {
+        AddressBookSystem addressBookSystem = new AddressBookSystem();
+        List<Person> addressBookDataList = addressBookSystem.countPeopleFromGivenState(AddressBookSystem.IOService.DB_IO, "telangana");
+        Assertions.assertEquals(2, addressBookDataList.size());
+    }
+
+    @Test
+    public void givenDateRangeWhenRetrieved_ShouldMatchEntryCount() {
+        AddressBookSystem addressBookSystem = new AddressBookSystem();
+        LocalDate startDate = LocalDate.of(2005, 1, 1);
+        LocalDate endDate = LocalDate.now();
+        List<Person> addressBookDataList = addressBookSystem.readAddressBookForDateRange(AddressBookSystem
+                .IOService.DB_IO, startDate, endDate);
+        Assertions.assertEquals(2, addressBookDataList.size());
     }
 }

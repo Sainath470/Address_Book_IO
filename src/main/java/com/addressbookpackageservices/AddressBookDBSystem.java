@@ -1,6 +1,7 @@
 package com.addressbookpackageservices;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,5 +121,39 @@ public class AddressBookDBSystem {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private List<Person> getAddressBookDataUsingDB(String sql)
+    {
+        List<Person> addressBookList = new ArrayList<>();
+        try (Connection connection = this.getConnection())
+        {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            addressBookList = this.getAddressbookContactData(resultSet);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return addressBookList;
+    }
+
+    public List<Person> countPeopleFromGivenCity(String city)
+    {
+        String sql = String.format("SELECT * FROM address_book WHERE city =  '%s';", city);
+        return this.getAddressBookDataUsingDB(sql);
+    }
+
+    public List<Person> countPeopleFromGivenState(String state)
+    {
+        String sql = String.format("SELECT * FROM address_book WHERE state =  '%s';", state);
+        return this.getAddressBookDataUsingDB(sql);
+    }
+
+    public List<Person> getAddressBookForDateRange(LocalDate startDate, LocalDate endDate)
+    {
+        String sql = String.format("SELECT * FROM address_book WHERE start_date BETWEEN '%s' AND '%s';", Date.valueOf(startDate), Date.valueOf(endDate));
+        return this.getAddressBookDataUsingDB(sql);
     }
 }

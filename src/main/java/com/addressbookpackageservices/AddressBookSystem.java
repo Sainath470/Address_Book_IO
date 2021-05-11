@@ -1,5 +1,6 @@
 package com.addressbookpackageservices;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AddressBookSystem
@@ -52,6 +53,23 @@ public class AddressBookSystem
 
     private Person getEmployeePayrollData(String name) {
         return this.addressBookContactList.stream().filter(employeePayrollDataItem -> employeePayrollDataItem.firstName.equals(name)).findFirst().orElse(null);
+    }
+
+    public List<Person> countPeopleFromGivenCity(IOService ioService, String city)
+    {
+        return addressBookDBSystem.countPeopleFromGivenCity(city);
+    }
+
+    public List<Person> countPeopleFromGivenState(IOService ioService, String state)
+    {
+        return addressBookDBSystem.countPeopleFromGivenState(state);
+    }
+
+    public List<Person> readAddressBookForDateRange(IOService ioService, LocalDate startDate, LocalDate endDate)
+    {
+        if(ioService.equals(IOService.DB_IO))
+            return addressBookDBSystem.getAddressBookForDateRange(startDate, endDate);
+        return null;
     }
 
 }

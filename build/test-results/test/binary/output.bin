@@ -1,10 +1,3 @@
 Driver loaded!
 UConnecting to database:jdbc:mysql://localhost:3306/addressbook_service?useSSL=false
-FConnection is successful!!!com.mysql.cj.jdbc.ConnectionImpl@323c50d5
-Driver loaded!
-UConnecting to database:jdbc:mysql://localhost:3306/addressbook_service?useSSL=false
-FConnection is successful!!!com.mysql.cj.jdbc.ConnectionImpl@1dd13279
-ª[Person{firstName='sai', lastName='nath', address='asrao nagar', city='hyderabad', state='telangana', zipCode='500040', email='sai@gmail.com', phoneNumber='708326675'}]
-Driver loaded!
-UConnecting to database:jdbc:mysql://localhost:3306/addressbook_service?useSSL=false
-FConnection is successful!!!com.mysql.cj.jdbc.ConnectionImpl@2b2abc6a
+FConnection is successful!!!com.mysql.cj.jdbc.ConnectionImpl@5d6eb7c8
